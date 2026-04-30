@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 🔥 HEADER METÁLICO PRO -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#E0E0E0"
+        android:elevation="6dp"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_android"
+            android:background="@drawable/borde_azul"
+            android:padding="8dp"/>
+
+        <TextView
+            android:text="TechStore"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- 🔥 BOTONES PRO -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:text="← Volver"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:backgroundTint="#D6D6D6"
+            android:textColor="#000"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnCarrito"
+            android:text="🛒 Carrito"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:backgroundTint="#BDBDBD"
+            android:textColor="#000"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- 🔥 LISTA TIPO TIENDA -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProductos"
+        android:padding="4dp"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TechStore</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="correo">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="crear_producto">Crear producto</string>
+    <string name="mis_productos">Mis productos</string>
+    <string name="btn_comprador">Entrar como Comprador</string>
+    <string name="btn_vendedor">Entrar como Vendedor</string>
+    <string name="btn_admin">Entrar como Admin</string>
+</resources>
