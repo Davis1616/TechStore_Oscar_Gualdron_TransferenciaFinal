@@ -2,6 +2,10 @@ package com.example.techstore;
 
 import java.io.Serializable;
 
+@SuppressWarnings({
+        "unused",
+        "FieldCanBeLocal"
+})
 public class Producto implements Serializable {
 
     private String id;
@@ -10,10 +14,17 @@ public class Producto implements Serializable {
     private String descripcion;
     private String imagen;
 
+    // Constructor vacío requerido por Firebase
     public Producto() {
     }
 
-    public Producto(String id, String nombre, String precio, String descripcion, String imagen) {
+    public Producto(
+            String id,
+            String nombre,
+            String precio,
+            String descripcion,
+            String imagen
+    ) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
