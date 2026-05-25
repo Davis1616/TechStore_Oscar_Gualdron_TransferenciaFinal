@@ -30,6 +30,7 @@ public class CatalogoActivity extends AppCompatActivity {
 
         Button btnCarrito = findViewById(R.id.btnCarrito);
         Button btnVolver = findViewById(R.id.btnVolver);
+
         recyclerProductos = findViewById(R.id.recyclerProductos);
 
         btnVolver.setOnClickListener(v -> finish());
@@ -57,11 +58,20 @@ public class CatalogoActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(query -> {
 
+                    int tamanoAnterior = lista.size();
+
                     lista.clear();
+
+                    if (tamanoAnterior > 0) {
+                        adapter.notifyItemRangeRemoved(0, tamanoAnterior);
+                    }
+
+                    int posicionInicio = lista.size();
 
                     for (QueryDocumentSnapshot doc : query) {
 
-                        Producto productoFirebase = doc.toObject(Producto.class);
+                        Producto productoFirebase =
+                                doc.toObject(Producto.class);
 
                         if (productoFirebase.getImagen() == null) {
                             productoFirebase.setImagen("");
@@ -70,22 +80,34 @@ public class CatalogoActivity extends AppCompatActivity {
                         lista.add(productoFirebase);
                     }
 
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemRangeInserted(
+                            posicionInicio,
+                            lista.size()
+                    );
+
                     recyclerProductos.setAlpha(1f);
 
                     if (lista.isEmpty()) {
-                        Toast.makeText(this,
-                                "No hay productos",
-                                Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(
+                                this,
+                                getString(R.string.no_hay_productos),
+                                Toast.LENGTH_LONG
+                        ).show();
                     }
                 })
                 .addOnFailureListener(e -> {
 
                     recyclerProductos.setAlpha(1f);
 
-                    Toast.makeText(this,
-                            "Error al cargar productos: " + e.getMessage(),
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(
+                            this,
+                            getString(
+                                    R.string.error_cargar_productos,
+                                    e.getMessage()
+                            ),
+                            Toast.LENGTH_LONG
+                    ).show();
                 });
     }
 

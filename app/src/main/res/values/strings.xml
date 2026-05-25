@@ -154,4 +154,5 @@
     <string name="no_ubicacion">No se pudo obtener ubicación</string>
 
     <string name="lat_lng_format">Lat: %1$.6f\nLng: %2$.6f</string>
+
 </resources>
