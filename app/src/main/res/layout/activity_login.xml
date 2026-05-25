@@ -1,83 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
-    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondo_principal">
 
-    <ImageView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:src="@drawable/ic_android"
-        android:background="@drawable/borde_azul"
-        android:padding="10dp"
-        android:layout_marginBottom="15dp"
-        android:contentDescription="@string/app_logo"/>
-
-    <TextView
-        android:text="@string/app_name"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:hint="@string/correo"
-        android:inputType="textEmailAddress"
-        android:autofillHints="emailAddress"
-        android:background="@color/gris_claro"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/padding_grande">
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:autofillHints="password"
-        android:background="@color/gris_claro"
-        android:padding="10dp"
-        android:layout_marginBottom="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="@dimen/logo_size"
+            android:layout_height="@dimen/logo_size"
+            android:layout_marginBottom="@dimen/margin_media"
+            android:background="@color/logo_background"
+            android:contentDescription="@string/app_logo"
+            android:padding="@dimen/padding_media"
+            android:src="@drawable/ic_android"
+            app:tint="@color/logo_tint"/>
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:text="@string/login"
-        android:backgroundTint="@color/gris_boton"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_grande"
+            android:text="@string/app_name"
+            android:textColor="@color/texto_principal"
+            android:textSize="@dimen/texto_titulo"
+            android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/btnRecuperar"
-        android:text="@string/olvide_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginBottom="@dimen/margin_pequena"
+            android:autofillHints="emailAddress"
+            android:backgroundTint="@color/input_color"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/correo"
+            android:inputType="textEmailAddress"
+            android:minHeight="@dimen/input_height"
+            android:padding="@dimen/padding_media"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="@color/texto_hint"/>
 
-    <Button
-        android:id="@+id/btnHuella"
-        android:text="@string/huella"
-        android:backgroundTint="@color/gris_boton"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginBottom="@dimen/margin_media"
+            android:autofillHints="password"
+            android:backgroundTint="@color/input_color"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:minHeight="@dimen/input_height"
+            android:padding="@dimen/padding_media"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="@color/texto_hint"/>
 
-    <Button
-        android:id="@+id/btnIrRegistro"
-        android:text="@string/crear_cuenta"
-        android:backgroundTint="@color/gris_boton2"
-        android:textColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/margin_pequena"
+            android:backgroundTint="@color/boton_primario"
+            android:text="@string/login"
+            android:textColor="@color/texto_boton"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnRecuperar"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/margin_pequena"
+            android:backgroundTint="@color/boton_secundario"
+            android:text="@string/olvide_password"
+            android:textColor="@color/texto_boton"/>
+
+        <Button
+            android:id="@+id/btnHuella"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/margin_pequena"
+            android:backgroundTint="@color/boton_huella"
+            android:text="@string/huella"
+            android:textColor="@color/texto_boton"/>
+
+        <Button
+            android:id="@+id/btnIrRegistro"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:backgroundTint="@color/boton_registro"
+            android:text="@string/crear_cuenta"
+            android:textColor="@color/texto_boton"/>
+
+    </LinearLayout>
+
+</ScrollView>

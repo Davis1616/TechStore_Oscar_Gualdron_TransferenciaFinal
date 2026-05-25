@@ -41,4 +41,20 @@
         <dimen name="alto_boton">56dp</dimen>
         <dimen name="alto_input">56dp</dimen>
 
+                <dimen name="padding_grande">24dp</dimen>
+                <dimen name="padding_media">12dp</dimen>
+
+                <dimen name="margin_pequena">10dp</dimen>
+                <dimen name="margin_media">15dp</dimen>
+
+                <dimen name="input_width">320dp</dimen>
+
+
+                <dimen name="button_width">320dp</dimen>
+                <dimen name="button_height">56dp</dimen>
+
+
+
+
+
 </resources>

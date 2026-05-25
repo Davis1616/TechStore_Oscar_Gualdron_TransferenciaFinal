@@ -50,4 +50,15 @@
 
     <color name="input_contraste">#1E1E1E</color>
 
+        <color name="input_color">#212121</color>
+
+        <color name="boton_terciario">#00897B</color>
+        <color name="boton_registro">#6A1B9A</color>
+    >
+        <color name="boton_huella">#004D40</color>
+
+        <color name="logo_background">#0D47A1</color>
+        <color name="logo_tint">#FFFFFF</color>
+
+
 </resources>
