@@ -8,51 +8,51 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/background"
-    android:padding="@dimen/padding_grande">
+    android:padding="24dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgLogo"
-        android:layout_width="@dimen/logo_size"
-        android:layout_height="@dimen/logo_size"
-        android:layout_marginBottom="@dimen/margin_grande"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="24dp"
         android:src="@mipmap/ic_launcher"
         android:contentDescription="@string/app_logo"
         android:background="@color/black"
-        android:padding="@dimen/padding_media"
+        android:padding="16dp"
         app:tint="@color/white" />
 
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_grande"
+        android:layout_marginBottom="24dp"
         android:text="@string/app_name"
         android:textColor="@color/texto_principal"
-        android:textSize="@dimen/texto_titulo"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnComprador"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginBottom="@dimen/margin_media"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/black"
         android:text="@string/comprador"
         android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btnVendedor"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginBottom="@dimen/margin_media"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/black"
         android:text="@string/vendedor"
         android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btnAdmin"
-        android:layout_width="@dimen/button_width"
-        android:layout_height="@dimen/button_height"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/primaryDark"
         android:text="@string/admin"
         android:textColor="@color/white" />
