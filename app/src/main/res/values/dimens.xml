@@ -32,4 +32,13 @@
 
         <dimen name="contenedor_botones">320dp</dimen>
 
+
+        <dimen name="padding_input">12dp</dimen>
+
+
+        <dimen name="margin_grande">20dp</dimen>
+
+        <dimen name="alto_boton">56dp</dimen>
+        <dimen name="alto_input">56dp</dimen>
+
 </resources>

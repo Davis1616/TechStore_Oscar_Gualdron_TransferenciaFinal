@@ -1,55 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondo_principal">
 
-    <Button
-        android:id="@+id/btnVolver"
-        android:text="@string/volver"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/accent"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/volver"/>
+        android:orientation="vertical"
+        android:padding="@dimen/padding_medio"
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:text="@string/crear_producto"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/alto_boton"
+            android:backgroundTint="@color/boton_secundario"
+            android:contentDescription="@string/volver"
+            android:paddingHorizontal="@dimen/padding_boton"
+            android:text="@string/volver"
+            android:textColor="@color/texto_boton"/>
 
-    <EditText
-        android:id="@+id/etNombre"
-        android:hint="@string/hint_nombre_producto"
-        android:layout_marginTop="20dp"
-        android:inputType="textPersonName"
-        android:autofillHints="name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_pequeno"
+            android:text="@string/crear_producto"
+            android:textColor="@color/texto_principal"
+            android:textSize="@dimen/texto_titulo"
+            android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/etPrecio"
-        android:hint="@string/hint_precio"
-        android:inputType="number"
-        android:autofillHints="transactionAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="320dp"
+            android:layout_height="@dimen/alto_input"
+            android:layout_marginTop="@dimen/margin_grande"
+            android:autofillHints="name"
+            android:backgroundTint="@color/input_contraste"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/hint_nombre_producto"
+            android:inputType="textPersonName"
+            android:minHeight="@dimen/alto_input"
+            android:padding="@dimen/padding_input"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="@color/texto_hint"/>
 
-    <Button
-        android:id="@+id/btnGuardar"
-        android:text="@string/guardar_producto"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/verde"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/etPrecio"
+            android:layout_width="320dp"
+            android:layout_height="@dimen/alto_input"
+            android:layout_marginTop="@dimen/margin_pequeno"
+            android:autofillHints="transactionAmount"
+            android:backgroundTint="@color/input_contraste"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:hint="@string/hint_precio"
+            android:inputType="numberDecimal"
+            android:minHeight="@dimen/alto_input"
+            android:padding="@dimen/padding_input"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="@color/texto_hint"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="320dp"
+            android:layout_height="@dimen/alto_boton"
+            android:layout_marginTop="@dimen/margin_grande"
+            android:backgroundTint="@color/boton_exito"
+            android:padding="@dimen/padding_boton"
+            android:text="@string/guardar_producto"
+            android:textColor="@color/texto_boton"/>
+
+    </LinearLayout>
+
+</ScrollView>

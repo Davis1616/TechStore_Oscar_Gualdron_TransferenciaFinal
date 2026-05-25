@@ -46,4 +46,8 @@
 
     <color name="icono_contraste">#0F172A</color>
 
+    <color name="boton_exito">#2E7D32</color>
+
+    <color name="input_contraste">#1E1E1E</color>
+
 </resources>
