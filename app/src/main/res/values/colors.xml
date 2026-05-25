@@ -62,5 +62,7 @@
 
     <color name="primary_dark">#0D47A1</color>
     <color name="accent_dark">#6A1B9A</color>
+    <color name="verde_oscuro">#1B5E20</color>
+    <color name="texto_principal_secundario">#424242</color>
 
 </resources>

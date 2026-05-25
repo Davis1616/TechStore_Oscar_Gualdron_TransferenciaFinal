@@ -12,93 +12,85 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:padding="@dimen/padding_grande">
+        android:padding="24dp">
 
         <ImageView
-            android:layout_width="@dimen/logo_size"
-            android:layout_height="@dimen/logo_size"
-            android:layout_marginBottom="@dimen/margin_media"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/logo_background"
             android:contentDescription="@string/app_logo"
-            android:padding="@dimen/padding_media"
+            android:padding="12dp"
             android:src="@drawable/ic_android"
-            app:tint="@color/logo_tint"/>
+            app:tint="@color/logo_tint" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_grande"
+            android:layout_marginBottom="24dp"
             android:text="@string/app_name"
             android:textColor="@color/texto_principal"
-            android:textSize="@dimen/texto_titulo"
-            android:textStyle="bold"/>
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etEmail"
-            android:layout_width="@dimen/input_width"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginBottom="@dimen/margin_pequena"
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
             android:autofillHints="emailAddress"
-            android:backgroundTint="@color/input_color"
-            android:ems="10"
-            android:gravity="center_vertical"
             android:hint="@string/correo"
             android:inputType="textEmailAddress"
-            android:minHeight="@dimen/input_height"
-            android:padding="@dimen/padding_media"
+            android:padding="10dp"
             android:textColor="@color/texto_principal"
-            android:textColorHint="@color/texto_hint"/>
+            android:textColorHint="@color/texto_hint" />
 
         <EditText
             android:id="@+id/etPassword"
-            android:layout_width="@dimen/input_width"
-            android:layout_height="@dimen/input_height"
-            android:layout_marginBottom="@dimen/margin_media"
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
             android:autofillHints="password"
-            android:backgroundTint="@color/input_color"
-            android:ems="10"
-            android:gravity="center_vertical"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:minHeight="@dimen/input_height"
-            android:padding="@dimen/padding_media"
+            android:padding="10dp"
             android:textColor="@color/texto_principal"
-            android:textColorHint="@color/texto_hint"/>
+            android:textColorHint="@color/texto_hint" />
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="@dimen/margin_pequena"
-            android:backgroundTint="@color/boton_primario"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
             android:text="@string/login"
-            android:textColor="@color/texto_boton"/>
+            android:textColor="@color/texto_boton"
+            android:backgroundTint="@color/boton_primario" />
 
         <Button
             android:id="@+id/btnRecuperar"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="@dimen/margin_pequena"
-            android:backgroundTint="@color/boton_secundario"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
             android:text="@string/olvide_password"
-            android:textColor="@color/texto_boton"/>
+            android:textColor="@color/texto_boton"
+            android:backgroundTint="@color/boton_secundario" />
 
         <Button
             android:id="@+id/btnHuella"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="@dimen/margin_pequena"
-            android:backgroundTint="@color/boton_huella"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
             android:text="@string/huella"
-            android:textColor="@color/texto_boton"/>
+            android:textColor="@color/texto_boton"
+            android:backgroundTint="@color/boton_huella" />
 
         <Button
             android:id="@+id/btnIrRegistro"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:backgroundTint="@color/boton_registro"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
             android:text="@string/crear_cuenta"
-            android:textColor="@color/texto_boton"/>
+            android:textColor="@color/texto_boton"
+            android:backgroundTint="@color/boton_registro" />
 
     </LinearLayout>
 
