@@ -2,11 +2,13 @@ package com.example.techstore;
 
 import java.io.Serializable;
 
+@SuppressWarnings("unused")
 public class Orden implements Serializable {
 
     private String total;
     private String estado;
 
+    // Constructor vacío requerido por Firebase
     public Orden() {
     }
 
