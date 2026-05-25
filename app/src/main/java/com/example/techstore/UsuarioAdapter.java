@@ -26,7 +26,9 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtNombre, txtEmail, txtRol;
+        TextView txtNombre;
+        TextView txtEmail;
+        TextView txtRol;
         Button btnEliminar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -41,7 +43,10 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent,
+            int viewType
+    ) {
 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_usuario, parent, false);
@@ -50,7 +55,10 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull ViewHolder holder,
+            int position
+    ) {
 
         Usuario u = lista.get(position);
 
@@ -58,31 +66,35 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
         holder.txtEmail.setText(u.getEmail());
         holder.txtRol.setText(u.getRol());
 
-        holder.btnEliminar.setOnClickListener(v -> {
+        holder.btnEliminar.setOnClickListener(v ->
+                db.collection("usuarios")
+                        .whereEqualTo("email", u.getEmail())
+                        .get()
+                        .addOnSuccessListener(query -> {
 
-            db.collection("usuarios")
-                    .whereEqualTo("email", u.getEmail())
-                    .get()
-                    .addOnSuccessListener(query -> {
+                            for (QueryDocumentSnapshot doc : query) {
+                                doc.getReference().delete();
+                            }
 
-                        for (QueryDocumentSnapshot doc : query) {
-                            doc.getReference().delete();
-                        }
-
-                        Toast.makeText(
-                                v.getContext(),
-                                "Usuario eliminado",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    })
-                    .addOnFailureListener(e ->
                             Toast.makeText(
                                     v.getContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG
-                            ).show()
-                    );
-        });
+                                    v.getContext().getString(
+                                            R.string.usuario_eliminado
+                                    ),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        })
+                        .addOnFailureListener(e ->
+                                Toast.makeText(
+                                        v.getContext(),
+                                        v.getContext().getString(
+                                                R.string.error_generico,
+                                                e.getMessage()
+                                        ),
+                                        Toast.LENGTH_LONG
+                                ).show()
+                        )
+        );
     }
 
     @Override

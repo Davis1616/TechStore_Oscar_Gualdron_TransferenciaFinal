@@ -157,5 +157,6 @@
     <string name="registro_exitoso">Registro exitoso</string>
     <string name="error_guardando_usuario">Error guardando usuario: %1$s</string>
     <string name="error_generico">Error: %1$s</string>
+    <string name="usuario_eliminado">Usuario eliminado</string>
 
 </resources>
