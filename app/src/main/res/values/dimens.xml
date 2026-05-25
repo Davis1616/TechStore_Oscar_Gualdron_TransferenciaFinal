@@ -16,4 +16,20 @@
         <dimen name="texto_subtitulo">18sp</dimen>
         <dimen name="texto_total">20sp</dimen>
         <dimen name="recycler_height">400dp</dimen>
+
+        <dimen name="logo_size">70dp</dimen>
+
+        <dimen name="padding_medio">16dp</dimen>
+        <dimen name="padding_pequeno">8dp</dimen>
+        <dimen name="padding_boton">12dp</dimen>
+        <dimen name="padding_recycler">4dp</dimen>
+
+        <dimen name="margin_pequeno">10dp</dimen>
+        <dimen name="margin_minimo">6dp</dimen>
+
+        <dimen name="elevacion_media">6dp</dimen>
+        <dimen name="elevacion_baja">4dp</dimen>
+
+        <dimen name="contenedor_botones">320dp</dimen>
+
 </resources>

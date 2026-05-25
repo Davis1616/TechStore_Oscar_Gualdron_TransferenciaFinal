@@ -30,11 +30,20 @@
 
     <color name="boton_primario">#3949AB</color>
     <color name="boton_verde">#2E7D32</color>
-    <color name="boton_secundario">#6A1B9A</color>
+    <color name="boton_secundario1">#6A1B9A</color>
 
     <color name="input_border">#424242</color>
     <color name="texto_oscuro">#1B1B1B</color>
 
     <color name="texto_secundario">#333333</color>
+    <color name="fondo_principal">#F5F5F5</color>
+    <color name="fondo_encabezado">#E0E7FF</color>
+
+    <color name="texto_pncipal">#111827</color>
+    <color name="texto_boton">#FFFFFF</color>
+    <color name="boton_principal">#2563EB</color>
+    <color name="boton_secundario">#374151</color>
+
+    <color name="icono_contraste">#0F172A</color>
 
 </resources>
