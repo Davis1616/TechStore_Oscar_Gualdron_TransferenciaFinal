@@ -25,4 +25,12 @@
     <color name="texto_blanco">#FFFFFF</color>
     <color name="boton_oscuro">#4527A0</color>
     <color name="card_background">#FFFFFF</color>
+    <color name="texto_hint">#616161</color>
+
+
+    <color name="boton_primario">#3949AB</color>
+    <color name="boton_verde">#2E7D32</color>
+    <color name="boton_secundario">#6A1B9A</color>
+
+    <color name="input_border">#424242</color>
 </resources>
