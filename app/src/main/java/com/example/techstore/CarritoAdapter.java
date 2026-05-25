@@ -1,68 +1,117 @@
 package com.example.techstore;
 
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHolder> {
+public class CarritoAdapter
+        extends RecyclerView.Adapter<CarritoAdapter.ViewHolder> {
 
-    List<Carrito> lista;
+    private final List<Carrito> lista;
 
     public CarritoAdapter(List<Carrito> lista) {
         this.lista = lista;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder
+            extends RecyclerView.ViewHolder {
 
         ImageView imgProducto;
-        TextView txtNombre, txtPrecio, txtCantidad;
 
-        public ViewHolder(View itemView) {
+        TextView txtNombre;
+        TextView txtPrecio;
+        TextView txtCantidad;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgProducto = itemView.findViewById(R.id.imgProducto);
-            txtNombre = itemView.findViewById(R.id.txtNombre);
-            txtPrecio = itemView.findViewById(R.id.txtPrecio);
-            txtCantidad = itemView.findViewById(R.id.txtCantidad);
+            imgProducto =
+                    itemView.findViewById(R.id.imgProducto);
+
+            txtNombre =
+                    itemView.findViewById(R.id.txtNombre);
+
+            txtPrecio =
+                    itemView.findViewById(R.id.txtPrecio);
+
+            txtCantidad =
+                    itemView.findViewById(R.id.txtCantidad);
         }
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent,
+            int viewType
+    ) {
 
-        View vista = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_carrito, parent, false);
+        View vista = LayoutInflater.from(
+                parent.getContext()
+        ).inflate(
+                R.layout.item_carrito,
+                parent,
+                false
+        );
 
         return new ViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull ViewHolder holder,
+            int position
+    ) {
 
-        Carrito p = lista.get(position);
+        Carrito producto = lista.get(position);
 
-        if (p == null) return;
+        String nombre =
+                producto.getNombre() != null
+                        ? producto.getNombre()
+                        : holder.itemView.getContext().getString(
+                        R.string.sin_nombre
+                );
 
-        holder.txtNombre.setText(p.nombre != null ? p.nombre : "Sin nombre");
+        String precio =
+                producto.getPrecio() != null
+                        ? producto.getPrecio()
+                        : "0";
 
-        // 🔥 MOSTRAR PRECIO STRING
-        holder.txtPrecio.setText("$ " + (p.precio != null ? p.precio : "0"));
+        holder.txtNombre.setText(nombre);
 
-        holder.txtCantidad.setText("x" + p.cantidad);
+        holder.txtPrecio.setText(
+                holder.itemView.getContext().getString(
+                        R.string.precio_formato,
+                        precio
+                )
+        );
+
+        holder.txtCantidad.setText(
+                holder.itemView.getContext().getString(
+                        R.string.cantidad_formato,
+                        producto.getCantidad()
+                )
+        );
 
         Glide.with(holder.itemView.getContext())
-                .load(p.imagenUrl)
-                .placeholder(android.R.drawable.ic_menu_gallery)
+                .load(producto.getImagenUrl())
+                .placeholder(
+                        android.R.drawable.ic_menu_gallery
+                )
                 .into(holder.imgProducto);
     }
 
     @Override
     public int getItemCount() {
-        return lista != null ? lista.size() : 0;
+        return lista.size();
     }
 }

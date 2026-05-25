@@ -5,7 +5,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.*;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -15,38 +16,24 @@ import java.util.List;
 
 public class UsuariosActivity extends AppCompatActivity {
 
-    RecyclerView recycler;
-    UsuarioAdapter adapter;
-    List<Usuario> lista;
-    FirebaseFirestore db;
-    Button btnVolver;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuarios);
 
-        //  Referencias UI
-        recycler = findViewById(R.id.recyclerUsuarios);
-        btnVolver = findViewById(R.id.btnVolver);
+        RecyclerView recycler = findViewById(R.id.recyclerUsuarios);
+        Button btnVolver = findViewById(R.id.btnVolver);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        //  Botón volver
-        btnVolver.setOnClickListener(v -> finish());
-
-        //  Lista + adapter
-        lista = new ArrayList<>();
-        adapter = new UsuarioAdapter(lista);
+        List<Usuario> lista = new ArrayList<>();
+        UsuarioAdapter adapter = new UsuarioAdapter(lista);
         recycler.setAdapter(adapter);
 
-        // 🔹 Firebase
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        cargarUsuarios();
-    }
+        btnVolver.setOnClickListener(v -> finish());
 
-    private void cargarUsuarios() {
         db.collection("usuarios")
                 .get()
                 .addOnSuccessListener(query -> {
@@ -58,10 +45,14 @@ public class UsuariosActivity extends AppCompatActivity {
                         lista.add(u);
                     }
 
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemRangeChanged(0, lista.size());
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Error al cargar usuarios", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                                this,
+                                "Error al cargar usuarios",
+                                Toast.LENGTH_SHORT
+                        ).show()
                 );
     }
 }

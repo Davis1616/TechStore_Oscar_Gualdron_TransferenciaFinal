@@ -17,21 +17,20 @@ import java.util.List;
 
 public class CatalogoActivity extends AppCompatActivity {
 
-    RecyclerView recyclerProductos;
-    ProductoAdapter adapter;
-    List<producto> lista; //
+    private RecyclerView recyclerProductos;
+    private ProductoAdapter adapter;
 
-    FirebaseFirestore db;
-
-    Button btnCarrito, btnVolver;
+    private final List<Producto> lista = new ArrayList<>();
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo);
 
-        btnCarrito = findViewById(R.id.btnCarrito);
-        btnVolver = findViewById(R.id.btnVolver);
+        Button btnCarrito = findViewById(R.id.btnCarrito);
+        Button btnVolver = findViewById(R.id.btnVolver);
+        recyclerProductos = findViewById(R.id.recyclerProductos);
 
         btnVolver.setOnClickListener(v -> finish());
 
@@ -39,13 +38,9 @@ public class CatalogoActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CarritoActivity.class))
         );
 
-        recyclerProductos = findViewById(R.id.recyclerProductos);
-
-        GridLayoutManager gridLayout = new GridLayoutManager(this, 2);
-        recyclerProductos.setLayoutManager(gridLayout);
+        recyclerProductos.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerProductos.setHasFixedSize(true);
 
-        lista = new ArrayList<>();
         adapter = new ProductoAdapter(lista);
         recyclerProductos.setAdapter(adapter);
 
@@ -66,29 +61,31 @@ public class CatalogoActivity extends AppCompatActivity {
 
                     for (QueryDocumentSnapshot doc : query) {
 
-                        producto p = doc.toObject(producto.class); // 🔥 CAMBIO AQUÍ
+                        Producto productoFirebase = doc.toObject(Producto.class);
 
-                        if (p != null) {
-
-                            if (p.imagen == null) {
-                                p.imagen = "";
-                            }
-
-                            lista.add(p);
+                        if (productoFirebase.getImagen() == null) {
+                            productoFirebase.setImagen("");
                         }
+
+                        lista.add(productoFirebase);
                     }
 
                     adapter.notifyDataSetChanged();
                     recyclerProductos.setAlpha(1f);
 
                     if (lista.isEmpty()) {
-                        Toast.makeText(this, "No hay productos en Firebase", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this,
+                                "No hay productos",
+                                Toast.LENGTH_LONG).show();
                     }
-
                 })
                 .addOnFailureListener(e -> {
+
                     recyclerProductos.setAlpha(1f);
-                    Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(this,
+                            "Error al cargar productos: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
                 });
     }
 

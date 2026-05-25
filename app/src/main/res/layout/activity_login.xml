@@ -1,86 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="24dp"
     android:gravity="center"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--  LOGO ANDROID -->
     <ImageView
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:src="@drawable/ic_android"
         android:background="@drawable/borde_azul"
         android:padding="10dp"
-        android:layout_marginBottom="15dp"/>
-    <!-- TITULO -->
+        android:layout_marginBottom="15dp"
+        android:contentDescription="@string/app_logo"/>
+
     <TextView
-        android:text="TechStore"
+        android:text="@string/app_name"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- EMAIL -->
     <EditText
         android:id="@+id/etEmail"
-        android:hint="Correo electrónico"
+        android:hint="@string/correo"
         android:inputType="textEmailAddress"
-        android:background="#F0F0F0"
+        android:autofillHints="emailAddress"
+        android:background="@color/gris_claro"
         android:padding="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-
-    <!-- PASSWORD -->
     <EditText
         android:id="@+id/etPassword"
-        android:hint="Contraseña"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        android:background="#F0F0F0"
+        android:autofillHints="password"
+        android:background="@color/gris_claro"
         android:padding="10dp"
         android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!-- LOGIN -->
     <Button
         android:id="@+id/btnLogin"
-        android:text="Iniciar sesión"
-        android:backgroundTint="#C0C0C0"
-        android:textColor="#000000"
+        android:text="@string/login"
+        android:backgroundTint="@color/gris_boton"
+        android:textColor="@color/black"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <!-- RECUPERAR -->
+
     <Button
         android:id="@+id/btnRecuperar"
+        android:text="@string/olvide_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="¿Olvidaste tu contraseña?" />
+        android:layout_height="wrap_content"/>
 
-
-
-    <!-- HUELLA -->
     <Button
         android:id="@+id/btnHuella"
-        android:text="Ingresar con huella"
-        android:backgroundTint="#D3D3D3"
-        android:textColor="#000000"
+        android:text="@string/huella"
+        android:backgroundTint="@color/gris_boton"
+        android:textColor="@color/black"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!-- REGISTRO -->
     <Button
         android:id="@+id/btnIrRegistro"
-        android:text="Crear cuenta"
-        android:backgroundTint="#B0B0B0"
-        android:textColor="#000000"
+        android:text="@string/crear_cuenta"
+        android:backgroundTint="@color/gris_boton2"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

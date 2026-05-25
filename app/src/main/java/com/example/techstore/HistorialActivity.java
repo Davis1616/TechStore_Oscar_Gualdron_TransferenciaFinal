@@ -4,42 +4,53 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.*;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistorialActivity extends AppCompatActivity {
 
-    RecyclerView recyclerHistorial;
-    HistorialAdapter adapter;
-    List<Orden> lista;
+    private HistorialAdapter adapter;
 
-    FirebaseFirestore db;
-    FirebaseAuth auth;
+    private final List<Orden> lista =
+            new ArrayList<>();
 
-    String uid;
+    private FirebaseFirestore db;
+
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_historial);
 
-        recyclerHistorial = findViewById(R.id.recyclerHistorial);
-        recyclerHistorial.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerHistorial =
+                findViewById(R.id.recyclerHistorial);
 
-        lista = new ArrayList<>();
+        recyclerHistorial.setLayoutManager(
+                new LinearLayoutManager(this)
+        );
+
         adapter = new HistorialAdapter(lista);
+
         recyclerHistorial.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
-        auth = FirebaseAuth.getInstance();
+
+        FirebaseAuth auth =
+                FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() == null) {
+
             finish();
+
             return;
         }
 
@@ -55,21 +66,40 @@ public class HistorialActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(query -> {
 
+                    int cantidadAnterior =
+                            lista.size();
+
                     lista.clear();
 
                     for (QueryDocumentSnapshot doc : query) {
 
-                        Orden o = doc.toObject(Orden.class);
+                        Orden orden =
+                                doc.toObject(Orden.class);
 
-                        if (o != null) {
-                            lista.add(o);
-                        }
+                        lista.add(orden);
                     }
 
-                    adapter.notifyDataSetChanged();
+                    if (cantidadAnterior > 0) {
+
+                        adapter.notifyItemRangeRemoved(
+                                0,
+                                cantidadAnterior
+                        );
+                    }
+
+                    adapter.notifyItemRangeInserted(
+                            0,
+                            lista.size()
+                    );
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Error cargando historial", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                                this,
+                                getString(
+                                        R.string.error_cargar_historial
+                                ),
+                                Toast.LENGTH_SHORT
+                        ).show()
                 );
     }
 }

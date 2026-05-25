@@ -1,45 +1,44 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#E3F2FD"
+    android:background="@color/background"
     android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- LOGO -->
     <TextView
-        android:text="💳 TechStore"
+        android:text="@string/app_name"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#0D47A1"
+        android:textColor="@color/primaryDark"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- TOTAL -->
     <TextView
         android:id="@+id/txtTotalPago"
-        android:text="Total: $0"
+        android:text="@string/total_default"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#1565C0"
+        android:textColor="@color/primary"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- BOTON PAGAR -->
     <Button
         android:id="@+id/btnPagar"
-        android:text="Pagar ahora"
-        android:backgroundTint="#0D47A1"
-        android:textColor="#FFFFFF"
+        android:text="@string/pagar_ahora"
+        android:backgroundTint="@color/primaryDark"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!-- VOLVER -->
     <Button
         android:id="@+id/btnVolver"
-        android:text="Cancelar"
+        android:text="@string/cancelar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

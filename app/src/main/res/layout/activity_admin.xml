@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#F5F7FA"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- HEADER -->
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center"
         android:padding="20dp"
-        android:background="#1E88E5"
+        android:background="@color/primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,19 +20,20 @@
             android:layout_height="80dp"
             android:src="@drawable/ic_android"
             android:background="@drawable/borde_purpura"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:contentDescription="@string/icono_admin"/>
 
         <TextView
-            android:text="Panel Administrador"
-            android:textColor="#FFFFFF"
+            android:text="@string/panel_admin"
+            android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
-    <!-- CONTENIDO -->
     <LinearLayout
         android:orientation="vertical"
         android:padding="16dp"
@@ -40,16 +42,15 @@
 
         <Button
             android:id="@+id/btnVolver"
-            android:text="← Volver"
-            android:backgroundTint="#1E88E5"
-            android:textColor="#FFFFFF"
+            android:text="@string/volver"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!-- TARJETA MÉTRICAS -->
         <LinearLayout
             android:orientation="vertical"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             android:elevation="4dp"
             android:padding="12dp"
             android:layout_marginTop="12dp"
@@ -58,7 +59,7 @@
 
             <TextView
                 android:id="@+id/txtTotalVentas"
-                android:text="Total vendido: $0"
+                android:text="@string/ventas_default"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
@@ -66,24 +67,24 @@
 
             <TextView
                 android:id="@+id/txtTotalPedidos"
-                android:text="Pedidos: 0"
+                android:text="@string/pedidos_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/txtPagados"
-                android:text="Pagados: 0"
+                android:text="@string/pagados_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/txtPendientes"
-                android:text="Pendientes: 0"
+                android:text="@string/pendientes_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
-        <!-- LISTA -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerVentas"
             android:layout_width="match_parent"

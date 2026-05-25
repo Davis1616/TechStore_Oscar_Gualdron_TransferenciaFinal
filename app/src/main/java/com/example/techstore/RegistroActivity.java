@@ -1,7 +1,11 @@
 package com.example.techstore;
 
 import android.os.Bundle;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,12 +16,12 @@ import java.util.HashMap;
 
 public class RegistroActivity extends AppCompatActivity {
 
-    EditText etNombre, etEmail, etPassword;
-    Spinner spinnerRol;
-    Button btnRegistrar, btnVolver;
+    private EditText etNombre, etEmail, etPassword;
+    private Spinner spinnerRol;
+    private Button btnRegistrar, btnVolver;
 
-    FirebaseAuth mAuth;
-    FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,29 +39,41 @@ public class RegistroActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         String[] roles = {"comprador", "vendedor"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, roles);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                roles
+        );
+
         spinnerRol.setAdapter(adapter);
 
         btnVolver.setOnClickListener(v -> finish());
 
-        btnRegistrar.setOnClickListener(v -> registrar());
+        btnRegistrar.setOnClickListener(v -> registrarUsuario());
     }
 
-    private void registrar() {
+    private void registrarUsuario() {
 
-        String nombre = etNombre.getText().toString();
-        String email = etEmail.getText().toString();
-        String pass = etPassword.getText().toString();
-        String rol = spinnerRol.getSelectedItem().toString();
+        String nombre = etNombre.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String pass = etPassword.getText().toString().trim();
+
+        String rol = spinnerRol.getSelectedItem() != null
+                ? spinnerRol.getSelectedItem().toString()
+                : "comprador";
 
         if (nombre.isEmpty() || email.isEmpty() || pass.isEmpty()) {
-            Toast.makeText(this, "Completa todo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    "Completa todos los campos",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnSuccessListener(authResult -> {
+
+                    if (mAuth.getCurrentUser() == null) return;
 
                     String uid = mAuth.getCurrentUser().getUid();
 
@@ -66,14 +82,28 @@ public class RegistroActivity extends AppCompatActivity {
                     user.put("email", email);
                     user.put("rol", rol);
 
-                    db.collection("usuarios").document(uid)
-                            .set(user);
+                    db.collection("usuarios")
+                            .document(uid)
+                            .set(user)
+                            .addOnSuccessListener(unused -> {
 
-                    Toast.makeText(this, "Registrado ✅", Toast.LENGTH_SHORT).show();
-                    finish();
+                                Toast.makeText(this,
+                                        "Registro exitoso",
+                                        Toast.LENGTH_SHORT).show();
+
+                                finish();
+                            })
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(this,
+                                            "Error guardando usuario: " + e.getMessage(),
+                                            Toast.LENGTH_SHORT).show()
+                            );
+
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show()
                 );
     }
 }

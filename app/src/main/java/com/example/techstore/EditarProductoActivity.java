@@ -8,22 +8,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EditarProductoActivity extends AppCompatActivity {
 
-    Button btnVolver;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_editar_producto);
 
-        btnVolver = findViewById(R.id.btnVolver);
+        Button btnVolver =
+                findViewById(R.id.btnVolver);
+
+        Button btnGuardar =
+                findViewById(R.id.btnGuardar);
 
         btnVolver.setOnClickListener(v -> finish());
 
-        // Simulación de guardado
-        Button btnGuardar = findViewById(R.id.btnGuardar);
-        if (btnGuardar != null) {
-            btnGuardar.setOnClickListener(v ->
-                    Toast.makeText(this, "Producto actualizado", Toast.LENGTH_SHORT).show());
-        }
+        btnGuardar.setOnClickListener(v ->
+                Toast.makeText(
+                        this,
+                        getString(
+                                R.string.producto_actualizado
+                        ),
+                        Toast.LENGTH_SHORT
+                ).show()
+        );
     }
 }

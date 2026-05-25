@@ -5,39 +5,48 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnComprador, btnVendedor, btnAdmin;
+    private Button btnComprador;
+    private Button btnVendedor;
+    private Button btnAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.installSplashScreen(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar botones
+        inicializarVistas();
+        configurarBotones();
+    }
+
+    private void inicializarVistas() {
+
         btnComprador = findViewById(R.id.btnComprador);
         btnVendedor = findViewById(R.id.btnVendedor);
         btnAdmin = findViewById(R.id.btnAdmin);
-
-        // Eventos de click
-        btnComprador.setOnClickListener(v -> abrirCatalogo());
-        btnVendedor.setOnClickListener(v -> abrirVendedor());
-        btnAdmin.setOnClickListener(v -> abrirAdmin());
     }
 
-    private void abrirCatalogo() {
-        Intent intent = new Intent(MainActivity.this, CatalogoActivity.class);
-        startActivity(intent);
+    private void configurarBotones() {
+
+        btnComprador.setOnClickListener(v ->
+                abrirPantalla(CatalogoActivity.class)
+        );
+
+        btnVendedor.setOnClickListener(v ->
+                abrirPantalla(VendedorActivity.class)
+        );
+
+        btnAdmin.setOnClickListener(v ->
+                abrirPantalla(AdminActivity.class)
+        );
     }
 
-    private void abrirVendedor() {
-        Intent intent = new Intent(MainActivity.this, VendedorActivity.class);
-        startActivity(intent);
-    }
-
-    private void abrirAdmin() {
-        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-        startActivity(intent);
+    private void abrirPantalla(Class<?> destino) {
+        startActivity(new Intent(this, destino));
     }
 }

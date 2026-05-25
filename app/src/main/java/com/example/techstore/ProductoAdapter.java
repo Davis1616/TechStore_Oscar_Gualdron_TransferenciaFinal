@@ -1,8 +1,13 @@
 package com.example.techstore;
 
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -14,9 +19,10 @@ import java.util.List;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHolder> {
 
-    List<producto> lista;
+    private final List<Producto> lista;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public ProductoAdapter(List<producto> lista) {
+    public ProductoAdapter(List<Producto> lista) {
         this.lista = lista;
     }
 
@@ -25,7 +31,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
         ImageView imgProducto;
         TextView txtNombre, txtPrecio;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imgProducto = itemView.findViewById(R.id.imgProducto);
@@ -34,68 +40,63 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
         }
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View vista = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_producto, parent, false);
+
         return new ViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        producto p = lista.get(position);
+        Producto p = lista.get(position);
 
-        String nombre = (p.nombre != null) ? p.nombre : "Sin nombre";
-        String precioStr = (p.precio != null) ? p.precio.trim() : "0";
+        final String nombreFinal = (p.getNombre() != null) ? p.getNombre() : "Sin nombre";
+        final String precioStrFinal = (p.getPrecio() != null) ? p.getPrecio().trim() : "0";
+        final String imagenFinal = (p.getImagen() != null) ? p.getImagen() : "";
 
-        // ✅ CORRECTO: usar imagenUrl
-        String imagen = (p.imagen != null) ? p.imagen : "";
-
-        holder.txtNombre.setText(nombre);
-        holder.txtPrecio.setText("$ " + precioStr);
+        holder.txtNombre.setText(nombreFinal);
+        holder.txtPrecio.setText("$ ".concat(precioStrFinal));
 
         Glide.with(holder.itemView.getContext())
-                .load(imagen)
+                .load(imagenFinal)
                 .placeholder(android.R.drawable.ic_menu_gallery)
                 .into(holder.imgProducto);
 
-        // 🔥 CLICK → AGREGAR / SUMAR CARRITO
         holder.itemView.setOnClickListener(v -> {
 
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            int precioFinal;
 
-            // 🔥 LIMPIAR PRECIO
-            String limpio = precioStr.replaceAll("[^0-9]", "");
-
-            int tempPrecio = 0;
             try {
-                tempPrecio = Integer.parseInt(limpio);
+                precioFinal = Integer.parseInt(precioStrFinal.replaceAll("[^0-9]", ""));
             } catch (Exception e) {
-                tempPrecio = 0;
+                Toast.makeText(v.getContext(),
+                        "Precio inválido",
+                        Toast.LENGTH_SHORT).show();
+                return;
             }
-
-            final int precioFinal = tempPrecio; // 🔥 SOLUCIÓN ERROR LAMBDA
 
             if (precioFinal <= 0) {
                 Toast.makeText(v.getContext(),
-                        "Error: precio inválido",
+                        "Precio inválido",
                         Toast.LENGTH_SHORT).show();
                 return;
             }
 
             db.collection("carrito")
-                    .whereEqualTo("nombre", nombre)
+                    .whereEqualTo("nombre", nombreFinal)
                     .get()
                     .addOnSuccessListener(query -> {
 
                         if (!query.isEmpty()) {
 
-                            // 🔁 YA EXISTE → SUMAR CANTIDAD
                             for (QueryDocumentSnapshot doc : query) {
 
                                 Long cantidadActual = doc.getLong("cantidad");
-
                                 int nuevaCantidad = (cantidadActual != null)
                                         ? cantidadActual.intValue() + 1
                                         : 1;
@@ -103,25 +104,24 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
                                 doc.getReference().update("cantidad", nuevaCantidad);
 
                                 Toast.makeText(v.getContext(),
-                                        "Cantidad actualizada (" + nuevaCantidad + ")",
+                                        "Cantidad actualizada: " + nuevaCantidad,
                                         Toast.LENGTH_SHORT).show();
                             }
 
                         } else {
 
-                            // 🆕 NUEVO PRODUCTO
                             HashMap<String, Object> carrito = new HashMap<>();
 
-                            carrito.put("nombre", nombre);
-                            carrito.put("precio", String.valueOf(precioFinal)); // 🔥 STRING (sin errores)
-                            carrito.put("imagenUrl", imagen);
+                            carrito.put("nombre", nombreFinal);
+                            carrito.put("precio", String.valueOf(precioFinal));
+                            carrito.put("imagenUrl", imagenFinal);
                             carrito.put("cantidad", 1);
 
                             db.collection("carrito")
                                     .add(carrito)
                                     .addOnSuccessListener(doc ->
                                             Toast.makeText(v.getContext(),
-                                                    "Agregado al carrito ✅",
+                                                    "Agregado al carrito",
                                                     Toast.LENGTH_SHORT).show()
                                     )
                                     .addOnFailureListener(e ->

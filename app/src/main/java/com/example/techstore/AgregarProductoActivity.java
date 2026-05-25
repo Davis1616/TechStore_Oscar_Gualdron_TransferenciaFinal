@@ -1,11 +1,13 @@
 package com.example.techstore;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -16,92 +18,130 @@ import java.util.HashMap;
 
 public class AgregarProductoActivity extends AppCompatActivity {
 
-    EditText etNombre, etPrecio, etDescripcion;
-    Button btnImagen, btnGuardar;
+    private EditText etNombre;
+    private EditText etPrecio;
+    private EditText etDescripcion;
 
-    Uri imageUri;
+    private Button btnImagen;
+    private Button btnGuardar;
 
-    FirebaseFirestore db;
-    FirebaseStorage storage;
+    private Uri imageUri;
 
-    private static final int PICK_IMAGE = 1;
+    private FirebaseFirestore db;
+    private FirebaseStorage storage;
+
+    private ActivityResultLauncher<String> seleccionarImagenLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_producto);
 
-        // Referencias
-        etNombre = findViewById(R.id.etNombre);
-        etPrecio = findViewById(R.id.etPrecio);
-        etDescripcion = findViewById(R.id.etDescripcion);
-        btnImagen = findViewById(R.id.btnImagen);
-        btnGuardar = findViewById(R.id.btnGuardar);
+        inicializarVistas();
 
-        // Firebase
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
-        // Seleccionar imagen
-        btnImagen.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, PICK_IMAGE);
-        });
+        configurarSelectorImagen();
 
-        // Guardar producto
-        btnGuardar.setOnClickListener(v -> {
+        btnImagen.setOnClickListener(v ->
+                seleccionarImagenLauncher.launch("image/*")
+        );
 
-            String nombre = etNombre.getText().toString().trim();
-            String precio = etPrecio.getText().toString().trim();
-            String descripcion = etDescripcion.getText().toString().trim();
-
-            // Validaciones
-            if (nombre.isEmpty() || precio.isEmpty() || descripcion.isEmpty() || imageUri == null) {
-                Toast.makeText(this, "Completa todos los campos y selecciona imagen", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            StorageReference ref = storage.getReference()
-                    .child("productos/" + System.currentTimeMillis());
-
-            ref.putFile(imageUri)
-                    .addOnSuccessListener(taskSnapshot ->
-                            ref.getDownloadUrl().addOnSuccessListener(uri -> {
-
-                                HashMap<String, Object> producto = new HashMap<>();
-                                producto.put("nombre", nombre);
-                                producto.put("precio", precio);
-                                producto.put("descripcion", descripcion);
-                                producto.put("imagen", uri.toString());
-
-                                db.collection("productos")
-                                        .add(producto)
-                                        .addOnSuccessListener(doc -> {
-                                            Toast.makeText(this, "Producto guardado", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        })
-                                        .addOnFailureListener(e ->
-                                                Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show()
-                                        );
-
-                            })
-                    )
-                    .addOnFailureListener(e ->
-                            Toast.makeText(this, "Error al subir imagen", Toast.LENGTH_SHORT).show()
-                    );
-        });
+        btnGuardar.setOnClickListener(v -> guardarProducto());
     }
 
-    // Recibir imagen
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void inicializarVistas() {
 
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            Toast.makeText(this, "Imagen seleccionada", Toast.LENGTH_SHORT).show();
+        etNombre = findViewById(R.id.etNombre);
+        etPrecio = findViewById(R.id.etPrecio);
+        etDescripcion = findViewById(R.id.etDescripcion);
+
+        btnImagen = findViewById(R.id.btnImagen);
+        btnGuardar = findViewById(R.id.btnGuardar);
+    }
+
+    private void configurarSelectorImagen() {
+
+        seleccionarImagenLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+
+                    if (uri != null) {
+
+                        imageUri = uri;
+
+                        Toast.makeText(
+                                this,
+                                getString(R.string.imagen_seleccionada),
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                }
+        );
+    }
+
+    private void guardarProducto() {
+
+        String nombre = etNombre.getText().toString().trim();
+        String precio = etPrecio.getText().toString().trim();
+        String descripcion = etDescripcion.getText().toString().trim();
+
+        if (nombre.isEmpty()
+                || precio.isEmpty()
+                || descripcion.isEmpty()
+                || imageUri == null) {
+
+            Toast.makeText(
+                    this,
+                    getString(R.string.completar_campos),
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
         }
+
+        StorageReference referencia = storage.getReference()
+                .child("productos/" + System.currentTimeMillis());
+
+        referencia.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot ->
+                        referencia.getDownloadUrl().addOnSuccessListener(uri -> {
+
+                            HashMap<String, Object> producto = new HashMap<>();
+
+                            producto.put("nombre", nombre);
+                            producto.put("precio", precio);
+                            producto.put("descripcion", descripcion);
+                            producto.put("imagen", uri.toString());
+
+                            db.collection("productos")
+                                    .add(producto)
+                                    .addOnSuccessListener(documentReference -> {
+
+                                        Toast.makeText(
+                                                this,
+                                                getString(R.string.producto_guardado),
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+
+                                        finish();
+                                    })
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(
+                                                    this,
+                                                    getString(R.string.error_guardar_producto),
+                                                    Toast.LENGTH_SHORT
+                                            ).show()
+                                    );
+                        })
+                )
+                .addOnFailureListener(e ->
+                        Toast.makeText(
+                                this,
+                                getString(R.string.error_subir_imagen),
+                                Toast.LENGTH_SHORT
+                        ).show()
+                );
     }
 }

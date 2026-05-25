@@ -1,58 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="24dp"
-    android:background="#EDE7F6"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- LOGO ANDROID -->
     <ImageView
         android:src="@mipmap/ic_launcher"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/app_logo"/>
 
-    <!-- TITULO -->
     <TextView
-        android:text="TechStore"
+        android:text="@string/app_name"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="#333333"
+        android:textColor="@color/texto_principal"
         android:layout_marginBottom="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- BOTÓN COMPRADOR -->
     <Button
         android:id="@+id/btnComprador"
-        android:text="🛒 Comprador"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#4CAF50"
-        android:textSize="16sp"
-        android:layout_marginBottom="15dp"
+        android:text="@string/comprador"
         android:layout_width="match_parent"
-        android:layout_height="55dp"/>
+        android:layout_height="55dp"
+        android:layout_marginBottom="15dp"/>
 
-    <!-- BOTÓN VENDEDOR -->
     <Button
         android:id="@+id/btnVendedor"
-        android:text="📦 Vendedor"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#2196F3"
-        android:textSize="16sp"
-        android:layout_marginBottom="15dp"
+        android:text="@string/vendedor"
         android:layout_width="match_parent"
-        android:layout_height="55dp"/>
+        android:layout_height="55dp"
+        android:layout_marginBottom="15dp"/>
 
-    <!-- BOTÓN ADMIN -->
     <Button
         android:id="@+id/btnAdmin"
-        android:text="⚙️ Administrador"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#9C27B0"
-        android:textSize="16sp"
+        android:text="@string/admin"
         android:layout_width="match_parent"
         android:layout_height="55dp"/>
 

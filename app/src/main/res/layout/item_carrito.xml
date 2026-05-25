@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:padding="10dp"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imgProducto"
         android:layout_width="60dp"
-        android:layout_height="60dp"/>
+        android:layout_height="60dp"
+        android:background="@color/gris_claro"
+        android:contentDescription="@string/producto" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp">
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <TextView
             android:id="@+id/txtNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"/>
+            android:text="@string/producto"
+            android:textStyle="bold"
+            android:textColor="@color/texto_principal" />
 
         <TextView
             android:id="@+id/txtPrecio"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/precio_default"
+            android:textColor="@color/verde_precio" />
 
         <TextView
             android:id="@+id/txtCantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="x1"/>
+            android:text="@string/cantidad_default"
+            android:textColor="@color/black" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- BOTÓN VOLVER -->
     <Button
         android:id="@+id/btnVolver"
-        android:text="← Volver"
+        android:text="@string/volver"
+        android:backgroundTint="@color/gris_boton"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
-    <!-- TÍTULO -->
     <TextView
-        android:text="Usuarios"
+        android:text="@string/usuarios"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="@color/texto_principal"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
-    <!-- 🔥 ESTE ES EL QUE TE FALTA -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerUsuarios"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

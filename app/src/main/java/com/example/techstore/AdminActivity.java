@@ -1,35 +1,56 @@
 package com.example.techstore;
 
 import android.os.Bundle;
-import android.widget.*;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.*;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class AdminActivity extends AppCompatActivity {
 
     private Button btnVolver;
     private RecyclerView recyclerVentas;
 
-    private TextView txtTotalVentas, txtTotalPedidos, txtPagados, txtPendientes;
+    private TextView txtTotalVentas;
+    private TextView txtTotalPedidos;
+    private TextView txtPagados;
+    private TextView txtPendientes;
 
     private List<Orden> lista;
     private HistorialAdapter adapter;
     private FirebaseFirestore db;
 
-    private int totalDinero = 0;
-    private int totalPedidos = 0;
-    private int pagados = 0;
-    private int pendientes = 0;
+    private int totalDinero;
+    private int totalPedidos;
+    private int pagados;
+    private int pendientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+
+        inicializarVistas();
+        configurarRecyclerView();
+
+        db = FirebaseFirestore.getInstance();
+
+        btnVolver.setOnClickListener(v -> finish());
+
+        cargarVentas();
+    }
+
+    private void inicializarVistas() {
 
         btnVolver = findViewById(R.id.btnVolver);
         recyclerVentas = findViewById(R.id.recyclerVentas);
@@ -38,20 +59,17 @@ public class AdminActivity extends AppCompatActivity {
         txtTotalPedidos = findViewById(R.id.txtTotalPedidos);
         txtPagados = findViewById(R.id.txtPagados);
         txtPendientes = findViewById(R.id.txtPendientes);
+    }
 
-        if (btnVolver != null) {
-            btnVolver.setOnClickListener(v -> finish());
-        }
+    private void configurarRecyclerView() {
 
         recyclerVentas.setLayoutManager(new LinearLayoutManager(this));
 
         lista = new ArrayList<>();
+
         adapter = new HistorialAdapter(lista);
+
         recyclerVentas.setAdapter(adapter);
-
-        db = FirebaseFirestore.getInstance();
-
-        cargarVentas();
     }
 
     private void cargarVentas() {
@@ -61,47 +79,69 @@ public class AdminActivity extends AppCompatActivity {
                 .addOnSuccessListener(query -> {
 
                     lista.clear();
-
-                    totalDinero = 0;
-                    totalPedidos = 0;
-                    pagados = 0;
-                    pendientes = 0;
+                    reiniciarContadores();
 
                     for (QueryDocumentSnapshot doc : query) {
 
-                        Orden o = doc.toObject(Orden.class);
+                        Orden orden = doc.toObject(Orden.class);
 
-                        if (o != null) {
+                        lista.add(orden);
 
-                            lista.add(o);
-                            totalPedidos++;
+                        totalPedidos++;
 
-                            // 🔥 PROTECCIÓN TOTAL
-                            if (o.total != null && !o.total.isEmpty()) {
-                                try {
-                                    totalDinero += Integer.parseInt(o.total.trim());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
+                        calcularTotalDinero(orden);
 
-                            if ("pagado".equals(o.estado)) {
-                                pagados++;
-                            } else {
-                                pendientes++;
-                            }
+                        if ("pagado".equalsIgnoreCase(orden.getEstado())) {
+                            pagados++;
+                        } else {
+                            pendientes++;
                         }
                     }
 
-                    txtTotalVentas.setText("Total vendido: $" + totalDinero);
-                    txtTotalPedidos.setText("Pedidos: " + totalPedidos);
-                    txtPagados.setText("Pagados: " + pagados);
-                    txtPendientes.setText("Pendientes: " + pendientes);
+                    actualizarResumen();
 
                     adapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(this, "Error cargando ventas", Toast.LENGTH_SHORT).show()
+                        Log.e("AdminActivity", "Error cargando ventas", e)
                 );
+    }
+
+    private void reiniciarContadores() {
+        totalDinero = 0;
+        totalPedidos = 0;
+        pagados = 0;
+        pendientes = 0;
+    }
+
+    private void calcularTotalDinero(Orden orden) {
+
+        if (orden != null && orden.getTotal() != null && !orden.getTotal().isEmpty()) {
+
+            try {
+                totalDinero += Integer.parseInt(orden.getTotal().trim());
+            } catch (NumberFormatException e) {
+                Log.e("AdminActivity", "Error parseando total: " + orden.getTotal(), e);
+            }
+        }
+    }
+
+    private void actualizarResumen() {
+
+        txtTotalVentas.setText(
+                String.format(Locale.getDefault(), "Total vendido: $%d", totalDinero)
+        );
+
+        txtTotalPedidos.setText(
+                String.format(Locale.getDefault(), "Pedidos: %d", totalPedidos)
+        );
+
+        txtPagados.setText(
+                String.format(Locale.getDefault(), "Pagados: %d", pagados)
+        );
+
+        txtPendientes.setText(
+                String.format(Locale.getDefault(), "Pendientes: %d", pendientes)
+        );
     }
 }

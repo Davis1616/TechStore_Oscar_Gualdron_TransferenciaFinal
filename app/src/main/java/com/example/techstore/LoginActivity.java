@@ -2,7 +2,9 @@ package com.example.techstore;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,92 +13,131 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText etEmail, etPassword;
-    Button btnLogin, btnIrRegistro, btnRecuperar;
+    private EditText etEmail;
+    private EditText etPassword;
 
-    FirebaseAuth mAuth;
-    FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnIrRegistro = findViewById(R.id.btnIrRegistro);
-        btnRecuperar = findViewById(R.id.btnRecuperar); // 🔥 AGREGA ESTE BOTÓN EN XML
+
+        Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnIrRegistro = findViewById(R.id.btnIrRegistro);
+        Button btnRecuperar = findViewById(R.id.btnRecuperar);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // 🔥 LOGIN
-        btnLogin.setOnClickListener(v -> {
+        btnLogin.setOnClickListener(v -> iniciarSesion());
 
-            String email = etEmail.getText().toString().trim();
-            String pass = etPassword.getText().toString().trim();
-
-            if (email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            mAuth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(task -> {
-
-                        if (task.isSuccessful()) {
-
-                            String uid = mAuth.getCurrentUser().getUid();
-
-                            db.collection("usuarios").document(uid)
-                                    .get()
-                                    .addOnSuccessListener(doc -> {
-
-                                        String rol = doc.getString("rol");
-
-                                        Intent intent;
-
-                                        if ("admin".equals(rol)) {
-                                            intent = new Intent(this, AdminActivity.class);
-                                        } else if ("vendedor".equals(rol)) {
-                                            intent = new Intent(this, VendedorActivity.class);
-                                        } else {
-                                            intent = new Intent(this, CatalogoActivity.class);
-                                        }
-
-                                        startActivity(intent);
-                                        finish();
-                                    });
-
-                        } else {
-                            Toast.makeText(this, "Login error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        });
-
-        //  IR A REGISTRO
         btnIrRegistro.setOnClickListener(v ->
                 startActivity(new Intent(this, RegistroActivity.class))
         );
 
-        // RECUPERAR CONTRASEÑA
-        btnRecuperar.setOnClickListener(v -> {
+        btnRecuperar.setOnClickListener(v -> recuperarContrasena());
+    }
 
-            String correo = etEmail.getText().toString().trim();
+    private void iniciarSesion() {
 
-            if (correo.isEmpty()) {
-                Toast.makeText(this, "Ingresa tu correo", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
 
-            mAuth.sendPasswordResetEmail(correo)
-                    .addOnSuccessListener(aVoid ->
-                            Toast.makeText(this, "Correo enviado ✅", Toast.LENGTH_LONG).show()
-                    )
-                    .addOnFailureListener(e ->
-                            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show()
-                    );
-        });
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this,
+                    getString(R.string.completa_campos),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+
+                    if (!task.isSuccessful() || mAuth.getCurrentUser() == null) {
+                        Toast.makeText(this,
+                                getString(R.string.error_login),
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    String uid = mAuth.getCurrentUser().getUid();
+                    cargarRolUsuario(uid);
+                });
+    }
+
+    private void cargarRolUsuario(String uid) {
+
+        db.collection("usuarios")
+                .document(uid)
+                .get()
+                .addOnSuccessListener(doc -> {
+
+                    if (!doc.exists()) {
+                        Toast.makeText(this,
+                                "Usuario no existe en Firestore",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    String rol = doc.getString("rol");
+
+                    if (rol == null || rol.isEmpty()) {
+                        Toast.makeText(this,
+                                "Error: usuario sin rol",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Intent intent;
+
+                    if (rol.equals("admin")) {
+                        intent = new Intent(this, AdminActivity.class);
+
+                    } else if (rol.equals("vendedor")) {
+                        intent = new Intent(this, VendedorActivity.class);
+
+                    } else {
+                        intent = new Intent(this, CatalogoActivity.class);
+                    }
+
+                    startActivity(intent);
+                    finish();
+
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this,
+                                "Error Firestore: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show()
+                );
+    }
+
+    private void recuperarContrasena() {
+
+        String correo = etEmail.getText().toString().trim();
+
+        if (correo.isEmpty()) {
+            Toast.makeText(this,
+                    getString(R.string.ingresa_correo),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.sendPasswordResetEmail(correo)
+                .addOnSuccessListener(aVoid ->
+                        Toast.makeText(this,
+                                getString(R.string.correo_enviado),
+                                Toast.LENGTH_LONG).show()
+                )
+                .addOnFailureListener(e ->
+                        Toast.makeText(this,
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show()
+                );
     }
 }

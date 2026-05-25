@@ -43,27 +43,27 @@ public class UbicacionActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         db = FirebaseFirestore.getInstance();
 
-        // 🔥 RECIBIR DATOS DE LA ORDEN
         ordenId = getIntent().getStringExtra("ordenId");
         total = getIntent().getStringExtra("total");
 
-        // BOTÓN OBTENER UBICACIÓN
         btnUbicar.setOnClickListener(v -> obtenerUbicacion());
 
-        // CONTINUAR AL PAGO
         btnContinuar.setOnClickListener(v -> {
 
             if (latitud == 0 && longitud == 0) {
-                Toast.makeText(this, "Primero obtén tu ubicación", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,
+                        getString(R.string.primero_ubicacion),
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (ordenId == null) {
-                Toast.makeText(this, "Error: orden no encontrada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,
+                        getString(R.string.error_orden),
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // 🔥 GUARDAR UBICACIÓN EN FIRESTORE (REQUERIMIENTO)
             db.collection("ordenes")
                     .document(ordenId)
                     .update(
@@ -71,16 +71,15 @@ public class UbicacionActivity extends AppCompatActivity {
                             "lng", longitud
                     )
                     .addOnSuccessListener(aVoid -> {
-
-                        // 🚀 IR A PAGO
                         Intent i = new Intent(UbicacionActivity.this, PagoActivity.class);
                         i.putExtra("ordenId", ordenId);
                         i.putExtra("total", total);
                         startActivity(i);
-
                     })
                     .addOnFailureListener(e ->
-                            Toast.makeText(this, "Error guardando ubicación", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,
+                                    getString(R.string.error_guardando_ubicacion),
+                                    Toast.LENGTH_SHORT).show()
                     );
         });
     }
@@ -88,10 +87,14 @@ public class UbicacionActivity extends AppCompatActivity {
     private void obtenerUbicacion() {
 
         if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    100
+            );
             return;
         }
 
@@ -101,26 +104,33 @@ public class UbicacionActivity extends AppCompatActivity {
                     if (location != null) {
                         mostrarUbicacion(location);
                     } else {
-                        Toast.makeText(this, "No se pudo obtener ubicación", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,
+                                getString(R.string.no_ubicacion),
+                                Toast.LENGTH_SHORT).show();
                     }
-
                 });
     }
 
     private void mostrarUbicacion(Location location) {
+
         latitud = location.getLatitude();
         longitud = location.getLongitude();
 
-        txtUbicacion.setText("Lat: " + latitud + "\nLng: " + longitud);
+        txtUbicacion.setText(
+                getString(R.string.lat_lng_format, latitud, longitud)
+        );
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 100 && grantResults.length > 0 &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 100 && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
             obtenerUbicacion();
         }

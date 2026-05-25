@@ -1,36 +1,55 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
         android:id="@+id/btnVolver"
-        android:text="← Volver"
+        android:text="@string/volver"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/accent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/volver"/>
 
     <TextView
-        android:text="Editar Producto"
+        android:text="@string/editar_producto"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <EditText
-        android:hint="Nuevo nombre"
+        android:id="@+id/etNuevoNombre"
+        android:hint="@string/nuevo_nombre"
+        android:layout_marginTop="15dp"
+        android:inputType="textPersonName"
+        android:autofillHints="name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <EditText
-        android:hint="Nuevo precio"
+        android:id="@+id/etNuevoPrecio"
+        android:hint="@string/nuevo_precio"
+        android:inputType="number"
+        android:autofillHints="transactionAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnGuardar"
+        android:text="@string/guardar_cambios"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/verde"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
 
 </LinearLayout>

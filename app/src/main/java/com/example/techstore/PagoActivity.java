@@ -15,7 +15,6 @@ public class PagoActivity extends AppCompatActivity {
 
     WebView webView;
     FirebaseFirestore db;
-
     String total;
     String ordenId;
     double lat, lng;
@@ -29,13 +28,11 @@ public class PagoActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        // 🔥 RECIBIR DATOS CORRECTOS
         total = getIntent().getStringExtra("total");
         ordenId = getIntent().getStringExtra("ordenId");
         lat = getIntent().getDoubleExtra("lat", 0);
         lng = getIntent().getDoubleExtra("lng", 0);
 
-        // 🔥 SIMULACIÓN ePayco
         String html = "<html><body style='text-align:center;margin-top:200px;'>"
                 + "<h2>ePayco</h2>"
                 + "<p>Procesando pago...</p>"
@@ -49,8 +46,6 @@ public class PagoActivity extends AppCompatActivity {
     private void confirmarPago() {
 
         if (ordenId == null) return;
-
-        // 🔥 SOLO ACTUALIZAR (NO CREAR OTRA)
         HashMap<String, Object> update = new HashMap<>();
         update.put("estado", "pagado");
         update.put("lat", lat);
@@ -63,7 +58,7 @@ public class PagoActivity extends AppCompatActivity {
                 .addOnSuccessListener(unused -> {
 
                     webView.loadData(
-                            "<h2 style='text-align:center;margin-top:200px;'>Transacción realizada exitosamente ✅</h2>",
+                            "<h2 style='text-align:center;margin-top:200px;'>Transacción realizada exitosamente </h2>",
                             "text/html",
                             "UTF-8"
                     );

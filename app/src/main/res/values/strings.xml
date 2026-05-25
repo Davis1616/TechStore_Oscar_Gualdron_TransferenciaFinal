@@ -8,4 +8,150 @@
     <string name="btn_comprador">Entrar como Comprador</string>
     <string name="btn_vendedor">Entrar como Vendedor</string>
     <string name="btn_admin">Entrar como Admin</string>
+    <string name="producto">Producto</string>
+    <string name="precio_default">$0</string>
+    <string name="comprador">Comprador</string>
+    <string name="vendedor">Vendedor</string>
+    <string name="admin">Administrador</string>
+    <string name="volver">Volver</string>
+    <string name="carrito">Carrito</string>
+    <string name="panel_admin">Panel Administrador</string>
+    <string name="ventas_default">Total vendido: $0</string>
+    <string name="pedidos_default">Pedidos: 0</string>
+    <string name="pagados_default">Pagados: 0</string>
+    <string name="pendientes_default">Pendientes: 0</string>
+    <string name="hint_nombre_producto">Nombre del producto</string>
+    <string name="hint_precio">Precio</string>
+    <string name="hint_descripcion">Descripción</string>
+    <string name="hint_imagen_url">https://i.imgur.com/imagen.jpg</string>
+    <string name="seleccionar_imagen">Seleccionar Imagen</string>
+    <string name="guardar_producto">Guardar Producto</string>
+    <string name="carrito_compras">Carrito de Compras</string>
+    <string name="total_default">Total: $0</string>
+    <string name="finalizar_compra">Finalizar Compra</string>
+    <string name="editar_producto">Editar Producto</string>
+    <string name="nuevo_nombre">Nuevo nombre</string>
+    <string name="nuevo_precio">Nuevo precio</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="historial_compras">Historial de Compras</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="olvide_password">¿Olvidaste tu contraseña?</string>
+    <string name="huella">Ingresar con huella</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="producto_demo">Producto 1 - $100.000</string>
+    <string name="editar">Editar</string>
+    <string name="pagar_ahora">Pagar ahora</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="nombre">Nombre</string>
+    <string name="seleccionar_rol">Selecciona rol</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="panel_sistema">Panel del Sistema</string>
+    <string name="sistema_activo">Sistema activo</string>
+    <string name="obtener_ubicacion">Obtener ubicación</string>
+    <string name="ubicacion_aqui">Ubicación aquí</string>
+    <string name="continuar_pago">Continuar al pago</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="panel_vendedor">Panel de Vendedor</string>
+    <string name="descripcion_crear_producto">Agrega nuevos productos a la tienda</string>
+    <string name="descripcion_mis_productos">Ver, editar o eliminar productos</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="cantidad_default">x1</string>
+    <string name="total">Total</string>
+    <string name="estado">Estado</string>
+    <string name="cantidad_uno">1</string>
+    <string name="correo_default">correo@email.com</string>
+    <string name="rol_default">Rol</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="error_cargar_ventas">Error cargando ventas</string>
+    <string name="imagen_seleccionada">Imagen seleccionada</string>
+    <string name="completar_campos">Completa todos los campos y selecciona imagen</string>
+    <string name="producto_guardado">Producto guardado</string>
+    <string name="error_guardar_producto">Error al guardar producto</string>
+    <string name="error_subir_imagen">Error al subir imagen</string>
+    <string name="carrito_vacio">Carrito vacío</string>
+    <string name="icono_admin">Icono del panel de administración</string>
+    <string name="logo_app">Logo de la aplicación</string>
+    <string name="app_logo">Logo de la aplicación</string>
+    <string name="imagen_producto">Imagen del producto</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="registrar">Registrar</string>
+
+
+    <string name="debes_iniciar_sesion">
+    Debes iniciar sesión
+</string>
+
+    <string name="error_creando_orden">
+    Error creando orden
+</string>
+
+    <string name="permiso_ubicacion">
+    Permiso de ubicación requerido
+</string>
+
+    <string name="total_con_precio">
+    Total: $%1$d
+</string>
+    <string name="error_cargar_carrito">
+    Error cargando carrito
+</string>
+    <string name="sin_nombre">Sin nombre</string>
+
+    <string name="precio_formato">$ %1$s</string>
+
+    <string name="cantidad_formato">x%1$d</string>
+    <string name="no_hay_productos">
+    No hay productos en Firebase
+</string>
+
+    <string name="error_cargar_productos">
+    Error: %1$s
+</string>
+    <string name="completa_campos">
+    Completa todos los campos
+</string>
+    <string name="producto_actualizado">Producto actualizado</string>
+    <string name="error_cargar_historial">
+    Error cargando historial
+</string>
+    <string name="estado_desconocido">
+    desconocido
+</string>
+
+    <string name="total_formato">
+    Total: $%1$s
+</string>
+
+    <string name="estado_formato">
+    Estado: %1$s
+</string>
+    <string name="error_login">
+    Error al iniciar sesión
+</string>
+
+    <string name="error_obtener_rol">
+    Error obteniendo rol
+</string>
+
+    <string name="ingresa_correo">
+    Ingresa tu correo
+</string>
+
+    <string name="correo_enviado">
+    Correo enviado
+</string>
+
+    <string name="error_recuperar">
+    Error: %1$s
+</string>
+    <string name="continuar">Continuar</string>
+
+    <string name="primero_ubicacion">Primero obtén tu ubicación</string>
+    <string name="error_orden">Error: orden no encontrada</string>
+    <string name="error_guardando_ubicacion">Error guardando ubicación</string>
+    <string name="no_ubicacion">No se pudo obtener ubicación</string>
+
+    <string name="lat_lng_format">Lat: %1$.6f\nLng: %2$.6f</string>
 </resources>

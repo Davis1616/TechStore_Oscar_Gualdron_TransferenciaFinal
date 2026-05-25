@@ -1,11 +1,45 @@
 package com.example.techstore;
 
+@SuppressWarnings("unused")
 public class Carrito {
 
-    public String nombre;
-    public String imagenUrl;
-    public String precio;
-    public int cantidad;
+    private String nombre;
+    private String imagenUrl;
+    private String precio;
+    private int cantidad;
 
-    public Carrito() {}
+    public Carrito() {
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 }

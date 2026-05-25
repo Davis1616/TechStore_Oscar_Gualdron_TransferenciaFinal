@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#F5F5F5"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- BOTÓN VOLVER ARRIBA -->
     <Button
         android:id="@+id/btnVolver"
-        android:text="← Volver"
+        android:text="@string/volver"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/accent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/volver"/>
 
-    <!-- TÍTULO -->
     <TextView
-        android:text="Crear Producto"
+        android:text="@string/crear_producto"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- INPUT NOMBRE -->
     <EditText
         android:id="@+id/etNombre"
-        android:hint="Nombre del producto"
+        android:hint="@string/hint_nombre_producto"
         android:layout_marginTop="20dp"
+        android:inputType="textPersonName"
+        android:autofillHints="name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!-- INPUT PRECIO -->
     <EditText
         android:id="@+id/etPrecio"
-        android:hint="Precio"
+        android:hint="@string/hint_precio"
         android:inputType="number"
+        android:autofillHints="transactionAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!-- BOTÓN GUARDAR -->
     <Button
         android:id="@+id/btnGuardar"
-        android:text="Guardar producto"
+        android:text="@string/guardar_producto"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/verde"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
