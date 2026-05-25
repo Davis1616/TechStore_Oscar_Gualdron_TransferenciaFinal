@@ -154,5 +154,8 @@
     <string name="no_ubicacion">No se pudo obtener ubicación</string>
 
     <string name="lat_lng_format">Lat: %1$.6f\nLng: %2$.6f</string>
+    <string name="registro_exitoso">Registro exitoso</string>
+    <string name="error_guardando_usuario">Error guardando usuario: %1$s</string>
+    <string name="error_generico">Error: %1$s</string>
 
 </resources>
