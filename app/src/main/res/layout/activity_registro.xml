@@ -4,48 +4,81 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/etNombre"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/hint_nombre"
         android:inputType="textPersonName"
         android:autofillHints="name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/texto_principal"
+        android:textColorHint="@color/texto_secundario" />
 
     <EditText
         android:id="@+id/etEmail"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         android:autofillHints="emailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/texto_principal"
+        android:textColorHint="@color/texto_secundario" />
 
     <EditText
         android:id="@+id/etPassword"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/hint_password"
         android:inputType="textPassword"
         android:autofillHints="password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/texto_principal"
+        android:textColorHint="@color/texto_secundario" />
 
     <Spinner
         android:id="@+id/spinnerRol"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/btnRegistrar"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="48dp"
+        android:layout_marginTop="16dp"
         android:text="@string/registrar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary_dark" />
 
     <Button
         android:id="@+id/btnVolver"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
         android:text="@string/volver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/white"
+        android:backgroundTint="@color/accent_dark" />
 
 </LinearLayout>

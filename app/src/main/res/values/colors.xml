@@ -60,5 +60,7 @@
         <color name="logo_background">#0D47A1</color>
         <color name="logo_tint">#FFFFFF</color>
 
+    <color name="primary_dark">#0D47A1</color>
+    <color name="accent_dark">#6A1B9A</color>
 
 </resources>

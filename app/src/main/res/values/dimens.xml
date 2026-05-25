@@ -47,11 +47,5 @@
                 <dimen name="margin_pequena">10dp</dimen>
                 <dimen name="margin_media">15dp</dimen>
 
-                <dimen name="input_width">320dp</dimen>
-
-
-                <dimen name="button_width">320dp</dimen>
-                <dimen name="button_height">56dp</dimen>
-
 
 </resources>
