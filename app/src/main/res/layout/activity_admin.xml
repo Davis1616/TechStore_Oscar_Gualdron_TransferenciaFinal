@@ -10,7 +10,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="20dp"
+        android:padding="@dimen/padding_large"
         android:background="@color/primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,68 +20,72 @@
             android:layout_height="80dp"
             android:src="@drawable/ic_android"
             android:background="@drawable/borde_purpura"
-            android:padding="10dp"
+            android:padding="@dimen/padding_medium"
             android:contentDescription="@string/icono_admin"/>
 
         <TextView
-            android:text="@string/panel_admin"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@string/panel_admin"
+            android:textColor="@color/texto_blanco"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="@dimen/padding_default"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
             android:id="@+id/btnVolver"
-            android:text="@string/volver"
-            android:backgroundTint="@color/primary"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/volver"
+            android:textColor="@color/texto_blanco"
+            android:backgroundTint="@color/boton_oscuro"/>
 
         <LinearLayout
             android:orientation="vertical"
-            android:background="@color/white"
-            android:elevation="4dp"
-            android:padding="12dp"
-            android:layout_marginTop="12dp"
+            android:background="@color/card_background"
+            android:elevation="@dimen/elevation_default"
+            android:padding="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/margin_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/txtTotalVentas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/ventas_default"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/text_subtitle"
+                android:textColor="@color/texto_principal"/>
 
             <TextView
                 android:id="@+id/txtTotalPedidos"
-                android:text="@string/pedidos_default"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/pedidos_default"
+                android:textColor="@color/texto_principal"/>
 
             <TextView
                 android:id="@+id/txtPagados"
-                android:text="@string/pagados_default"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/pagados_default"
+                android:textColor="@color/texto_principal"/>
 
             <TextView
                 android:id="@+id/txtPendientes"
-                android:text="@string/pendientes_default"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/pendientes_default"
+                android:textColor="@color/texto_principal"/>
 
         </LinearLayout>
 
@@ -89,7 +93,7 @@
             android:id="@+id/recyclerVentas"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_weight="1"/>
 
     </LinearLayout>

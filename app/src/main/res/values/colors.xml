@@ -22,5 +22,7 @@
 
     <color name="gris_boton">#D6D6D6</color>
     <color name="gris_boton2">#BDBDBD</color>
-
+    <color name="texto_blanco">#FFFFFF</color>
+    <color name="boton_oscuro">#4527A0</color>
+    <color name="card_background">#FFFFFF</color>
 </resources>

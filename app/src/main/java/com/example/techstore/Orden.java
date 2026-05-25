@@ -7,8 +7,6 @@ public class Orden implements Serializable {
 
     private String total;
     private String estado;
-
-    // Constructor vacío requerido por Firebase
     public Orden() {
     }
 
