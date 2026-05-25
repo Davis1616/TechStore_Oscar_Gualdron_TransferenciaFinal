@@ -4,21 +4,16 @@
         <dimen name="padding_large">20dp</dimen>
         <dimen name="padding_medium">10dp</dimen>
         <dimen name="padding_default">16dp</dimen>
-
         <dimen name="margin_small">10dp</dimen>
         <dimen name="margin_medium">12dp</dimen>
-
         <dimen name="elevation_default">4dp</dimen>
-
         <dimen name="text_title">22sp</dimen>
         <dimen name="text_subtitle">18sp</dimen>
-
-
         <dimen name="input_height">56dp</dimen>
-
-
         <dimen name="form_width">320dp</dimen>
-
-
-
+        <dimen name="contenedor_width">320dp</dimen>
+        <dimen name="texto_titulo">24sp</dimen>
+        <dimen name="texto_subtitulo">18sp</dimen>
+        <dimen name="texto_total">20sp</dimen>
+        <dimen name="recycler_height">400dp</dimen>
 </resources>
