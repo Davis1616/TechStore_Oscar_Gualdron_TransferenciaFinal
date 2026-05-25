@@ -4,8 +4,10 @@
     android:orientation="vertical"
     android:background="@color/background"
     android:padding="16dp"
+    android:gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:text="@string/panel_vendedor"
         android:textSize="24sp"
@@ -73,8 +75,9 @@
         android:text="@string/cerrar_sesion"
         android:backgroundTint="@color/primaryDark"
         android:textColor="@color/white"
+        android:minHeight="48dp"
         android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

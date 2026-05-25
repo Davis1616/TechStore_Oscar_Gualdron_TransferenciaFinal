@@ -11,7 +11,6 @@ public class Usuario {
     private String rol;
 
     public Usuario() {
-        // requerido por Firebase
     }
 
     public Usuario(String nombre, String email, String rol) {
