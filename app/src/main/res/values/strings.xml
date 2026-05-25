@@ -158,5 +158,13 @@
     <string name="error_guardando_usuario">Error guardando usuario: %1$s</string>
     <string name="error_generico">Error: %1$s</string>
     <string name="usuario_eliminado">Usuario eliminado</string>
+    <string name="total_vendido">Total vendido: $%1$d</string>
+    <string name="total_pedidos">Pedidos: %1$d</string>
+    <string name="total_pagados">Pagados: %1$d</string>
+    <string name="total_pendientes">Pendientes: %1$d</string>
+
+    <string name="log_admin">AdminActivity</string>
+    <string name="error_parse_total">Error parseando total: </string>
+
 
 </resources>

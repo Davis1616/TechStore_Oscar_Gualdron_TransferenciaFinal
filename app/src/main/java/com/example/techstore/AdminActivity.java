@@ -1,8 +1,6 @@
 package com.example.techstore;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +16,6 @@ import java.util.Locale;
 
 public class AdminActivity extends AppCompatActivity {
 
-    private Button btnVolver;
     private RecyclerView recyclerVentas;
 
     private TextView txtTotalVentas;
@@ -26,9 +23,9 @@ public class AdminActivity extends AppCompatActivity {
     private TextView txtPagados;
     private TextView txtPendientes;
 
-    private List<Orden> lista;
+    private final List<Orden> lista = new ArrayList<>();
+
     private HistorialAdapter adapter;
-    private FirebaseFirestore db;
 
     private int totalDinero;
     private int totalPedidos;
@@ -43,16 +40,14 @@ public class AdminActivity extends AppCompatActivity {
         inicializarVistas();
         configurarRecyclerView();
 
-        db = FirebaseFirestore.getInstance();
-
-        btnVolver.setOnClickListener(v -> finish());
+        findViewById(R.id.btnVolver)
+                .setOnClickListener(v -> finish());
 
         cargarVentas();
     }
 
     private void inicializarVistas() {
 
-        btnVolver = findViewById(R.id.btnVolver);
         recyclerVentas = findViewById(R.id.recyclerVentas);
 
         txtTotalVentas = findViewById(R.id.txtTotalVentas);
@@ -63,9 +58,9 @@ public class AdminActivity extends AppCompatActivity {
 
     private void configurarRecyclerView() {
 
-        recyclerVentas.setLayoutManager(new LinearLayoutManager(this));
-
-        lista = new ArrayList<>();
+        recyclerVentas.setLayoutManager(
+                new LinearLayoutManager(this)
+        );
 
         adapter = new HistorialAdapter(lista);
 
@@ -74,11 +69,19 @@ public class AdminActivity extends AppCompatActivity {
 
     private void cargarVentas() {
 
-        db.collection("ordenes")
+        FirebaseFirestore.getInstance()
+                .collection("ordenes")
                 .get()
                 .addOnSuccessListener(query -> {
 
+                    int cantidadAnterior = lista.size();
+
                     lista.clear();
+
+                    if (cantidadAnterior > 0) {
+                        adapter.notifyItemRangeRemoved(0, cantidadAnterior);
+                    }
+
                     reiniciarContadores();
 
                     for (QueryDocumentSnapshot doc : query) {
@@ -98,16 +101,14 @@ public class AdminActivity extends AppCompatActivity {
                         }
                     }
 
-                    actualizarResumen();
+                    adapter.notifyItemRangeInserted(0, lista.size());
 
-                    adapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e ->
-                        Log.e("AdminActivity", "Error cargando ventas", e)
-                );
+                    actualizarResumen();
+                });
     }
 
     private void reiniciarContadores() {
+
         totalDinero = 0;
         totalPedidos = 0;
         pagados = 0;
@@ -116,12 +117,16 @@ public class AdminActivity extends AppCompatActivity {
 
     private void calcularTotalDinero(Orden orden) {
 
-        if (orden != null && orden.getTotal() != null && !orden.getTotal().isEmpty()) {
+        if (orden.getTotal() != null &&
+                !orden.getTotal().trim().isEmpty()) {
 
             try {
-                totalDinero += Integer.parseInt(orden.getTotal().trim());
-            } catch (NumberFormatException e) {
-                Log.e("AdminActivity", "Error parseando total: " + orden.getTotal(), e);
+
+                totalDinero += Integer.parseInt(
+                        orden.getTotal().trim()
+                );
+
+            } catch (NumberFormatException ignored) {
             }
         }
     }
@@ -129,19 +134,35 @@ public class AdminActivity extends AppCompatActivity {
     private void actualizarResumen() {
 
         txtTotalVentas.setText(
-                String.format(Locale.getDefault(), "Total vendido: $%d", totalDinero)
+                String.format(
+                        Locale.getDefault(),
+                        getString(R.string.total_vendido),
+                        totalDinero
+                )
         );
 
         txtTotalPedidos.setText(
-                String.format(Locale.getDefault(), "Pedidos: %d", totalPedidos)
+                String.format(
+                        Locale.getDefault(),
+                        getString(R.string.total_pedidos),
+                        totalPedidos
+                )
         );
 
         txtPagados.setText(
-                String.format(Locale.getDefault(), "Pagados: %d", pagados)
+                String.format(
+                        Locale.getDefault(),
+                        getString(R.string.total_pagados),
+                        pagados
+                )
         );
 
         txtPendientes.setText(
-                String.format(Locale.getDefault(), "Pendientes: %d", pendientes)
+                String.format(
+                        Locale.getDefault(),
+                        getString(R.string.total_pendientes),
+                        pendientes
+                )
         );
     }
 }
